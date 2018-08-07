@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算属性,方法和监听器</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<div>{{fullName1}}</div>
+		<div>{{fullName2()}}</div>
+		<div>{{fullName3}}</div>
+	</div>
+</body>
+<script>
+
+	var vm = new Vue({
+		el: '#root',
+		data: {
+			firstName: 'li',
+			lastName: 'donghui',
+			fullName3: 'li donghui'
+		},
+		//计算属性，内置缓存，只要计算的属性没有发生改变就不会重新计算
+		computed: {
+			fullName1: function(){
+				return this.firstName + ' ' + this.lastName
+			}
+		},
+		//方法
+		methods: {
+			fullName2: function(){
+				return this.firstName + ' ' + this.lastName
+			}
+		},
+		//监听器
+		watch: {
+			firstName: function(){
+				this.fullName3 = this.firstName + ' ' + this.lastName
+			},
+			lastName: function(){
+				this.fullName3 = this.firstName + ' ' + this.lastName
+			}
+		}
+	})
+</script>
+
+</html>

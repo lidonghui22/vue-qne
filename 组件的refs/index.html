@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件的refs</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<counter ref='counterOne' @change="sumFn"></counter>
+		<counter ref='counterTwo'@change="sumFn"></counter>
+		<div>总数：{{total}}</div>
+	</div>
+</body>
+<script>
+	Vue.component('counter',{
+		template: '<div @click="childClick">{{number}}</div>',
+		data: function(){
+			return {
+				number: 0
+			}
+		},
+		methods: {
+			childClick: function(){
+				this.number++;
+				this.$emit('change')
+			}
+		}
+	})
+
+	var vm = new Vue({
+		el: '#root',
+		data: {
+			total: 0
+		},
+		methods: {
+			sumFn: function(){
+				this.total = this.$refs.counterOne.number + this.$refs.counterTwo.number
+			}
+		}
+	})
+</script>
+
+</html>
